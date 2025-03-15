@@ -27,4 +27,8 @@ export function deleteTodo(title) {
     }
 }
 
+export function updateTodo(todo) {
+    
+}
+
 export { todos }
