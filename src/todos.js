@@ -7,28 +7,44 @@ class Todo {
     }
 }
 
-export function addTodo(title, description, dueDate, priority) {
-    const newTodo = new Todo(title, description, dueDate, priority)
-    todos.push(newTodo)
-}
+class Project {
 
-const todoDefault = new Todo('Start', 'You must create your first task here.', '20-03-2026', 'low')
-
-const todos = [ todoDefault ]
-
-export function sayTitle(todo) {
-    console.log(todo.title)
-}
-
-export function deleteTodo(title) {
-    const index = todos.findIndex(todo => todo.title === title)
-    if (index !== -1) {
-        todos.splice(index, 1)
+    constructor(name) {
+        this.name = name
+        this.todos = []
     }
+
+    addTodo(title, description, dueDate, priority) {
+        const newTodo = new Todo(title, description, dueDate, priority)
+        this.todos.push(newTodo)
+    }
+
+    updateTodo(title, newTitle, newDescription, newDueDate, newPriority) {
+        const todo = this.todos.find(todo => todo.title === title)
+        if (todo) {
+            todo.title = newTitle
+            todo.description = newDescription
+            todo.dueDate = newDueDate
+            todo.priority = newPriority
+        }
+    }
+
+    deleteTodo(title) {
+        const index = this.todos.findIndex(todo => todo.title === title)
+        if (index !== -1) {
+            this.todos.splice(index, 1)
+        }
+    }
+
 }
 
-export function updateTodo(todo) {
-    
+const projectDefault = new Project('Default')
+projectDefault.addTodo('Start', 'You must create your first task here.', '20-03-2026', 'low')
+
+const projects = [projectDefault]
+
+export function newProject(name) {
+    new Project(name)
 }
 
-export { todos }
+export { projects }
