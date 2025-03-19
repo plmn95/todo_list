@@ -9,10 +9,38 @@ html, body {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: red;
     display: grid;
+    grid-template: 1fr / 1fr 4fr;
 }
 
-#side-menu {
-    background-color: blue;
+#sidebar {
+    background-color: #0093F4;
+}
+
+#lines {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+#side-menu li {
+    list-style-type: none;
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: white;
+    margin: 1rem;
+}
+
+#projects-menu li {
+    list-style-type: none;
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    color: white;
+    margin: 1rem;
+    padding-left: 1rem;
+}
+
+#main {
+    background-color: #D4D6F1;
 }

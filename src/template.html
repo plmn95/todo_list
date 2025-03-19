@@ -4,10 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Kumbh+Sans:wght@100..900&display=swap');
+    </style>
 </head>
 <body>
     <div id="container">
-        <div id="side-menu"></div>
+        <div id="sidebar">
+            <div id="lines"><hr><hr><hr><hr><hr></div>
+            <ul id="side-menu">
+                <li>today</li>
+                <li>this week</li>
+                <li id="btn-projects">projects</li>
+            </ul>
+            <ul id="projects-menu"></ul>
+        </div>
         <div id="main"></div>
     </div>
 </body>
