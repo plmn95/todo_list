@@ -1,3 +1,5 @@
+import {  } from 'date-fns'
+
 class Todo {
     constructor(title, description, dueDate, priority) {
         this.title = title
@@ -39,7 +41,7 @@ class Project {
 }
 
 const projectDefault = new Project('Default')
-projectDefault.addTodo('Start', 'You must create your first task here.', '20-03-2026', 'low')
+projectDefault.addTodo('Start', 'You must create your first task here.', new Date(), 'low')
 
 const projects = [projectDefault]
 

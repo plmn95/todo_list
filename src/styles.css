@@ -43,4 +43,24 @@ html, body {
 
 #main {
     background-color: #D4D6F1;
+    display: grid;
+    grid-template: 1fr 5fr / 1fr;
+}
+
+#div-title {
+    display: flex;
+    justify-content: center;
+}
+
+#title {
+    font-family: "Faster One", systems-ui;
+    font-weight: 400;
+    font-size: 48px;
+    color: #F51414;
+    line-height: 0.8;
+    margin: 3rem;
+}
+
+#tasks {
+
 }
