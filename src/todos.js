@@ -42,6 +42,7 @@ class Project {
 
 const projectDefault = new Project('Default')
 projectDefault.addTodo('Start', 'You must create your first task here.', new Date(), 'low')
+projectDefault.addTodo('Test', 'You must create your first task here.', new Date(), 'low')
 
 const projects = [projectDefault]
 

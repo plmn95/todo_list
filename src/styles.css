@@ -15,6 +15,7 @@ html, body {
 
 #sidebar {
     background-color: #0093F4;
+    cursor: default;
 }
 
 #lines {
@@ -22,23 +23,17 @@ html, body {
     margin-bottom: 3rem;
 }
 
-#side-menu li {
+#side-menu {
+    margin-top: 4rem;
+}
+
+#side-menu li, #projects-menu li {
     list-style-type: none;
     font-family: "Kumbh Sans", sans-serif;
     font-weight: 400;
     font-size: 28px;
     color: white;
     margin: 1rem;
-}
-
-#projects-menu li {
-    list-style-type: none;
-    font-family: "Kumbh Sans", sans-serif;
-    font-weight: 300;
-    font-size: 24px;
-    color: white;
-    margin: 1rem;
-    padding-left: 1rem;
 }
 
 #main {
@@ -50,6 +45,7 @@ html, body {
 #div-title {
     display: flex;
     justify-content: center;
+    cursor: default;
 }
 
 #title {
@@ -59,8 +55,41 @@ html, body {
     color: #F51414;
     line-height: 0.8;
     margin: 3rem;
+    margin-bottom: 1rem;
 }
 
-#tasks {
+#todos {
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    padding-top: 0;
+    margin-top: 1rem;
+}
 
+.todo {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border: solid #F51414 1px;
+    margin-bottom: 1rem;
+}
+
+.todo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo-header-part {
+    display: flex;
+    align-items: center;
+}
+
+.todo-header-part * {
+    margin: 1rem;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
 }
