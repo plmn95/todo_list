@@ -3,6 +3,7 @@ import { isToday, isThisWeek, format } from 'date-fns'
 
 import arrowIcon from './images/todo_icons/arrow-down-bold.svg'
 import checkIcon from './images/todo_icons/check-bold.svg'
+import editIcon from './images/todo_icons/pencil.svg'
 
 export function menuController() {
     const btnToday = document.getElementById('btn-today')
@@ -26,7 +27,7 @@ function renderProjects() {
     })
 }
 
-function CreateTodoElement(todo) {
+function createTodoElement(todo) {
 
     console.log(todo)
 
@@ -39,9 +40,6 @@ function CreateTodoElement(todo) {
     const btnArrow = document.createElement('img')
     btnArrow.src = arrowIcon
     btnArrow.classList.add('icon')
-    btnArrow.addEventListener('click', () => {
-        container.append(CreateTodoDescription(todo))
-    })
     const title = document.createElement('p')
     title.innerText = todo.title
     const containerLeft = document.createElement('div')
@@ -58,21 +56,39 @@ function CreateTodoElement(todo) {
     containerRight.append(dueDate, btnCheck)
 
     todoHeader.append(containerLeft, containerRight)
-    container.append(todoHeader)
-    return container
 
-}
-
-function CreateTodoDescription(todo) {
-
-    const container = document.createElement('div')
+    const todoDescription = document.createElement('div')
 
     const containerDesc = document.createElement('div')
-    const description = document.createElement('p')
-    description.innerText = todo.description
-    containerDesc.append(description)
+    const todoDescriptionText = document.createElement('p')
+    todoDescriptionText.innerText = todo.description
+    containerDesc.append(todoDescriptionText)
+    todoDescription.append(containerDesc)
+    todoDescription.classList.add('todo-description')
 
-    container.append(containerDesc)
+    const todoButtons = document.createElement('div')
+    todoButtons.classList.add('todo-buttons')
+    const btnPriority = document.createElement('button')
+    btnPriority.innerText = todo.priority
+    btnPriority.classList.add('button-priority')
+    const btnEdit = document.createElement('img')
+    btnEdit.src = editIcon
+    btnEdit.classList.add('icon')
+    todoButtons.append(btnPriority, btnEdit)
+    todoDescription.append(todoButtons)
+
+    container.append(todoHeader, todoDescription)
+
+    btnArrow.addEventListener('click', () => {
+        const isNotExpanded = todoDescription.style.display === 'none'
+        if (isNotExpanded) {
+            todoDescription.style.display = 'block'
+            btnArrow.style.transform = 'rotate(180deg)'
+        } else {
+            todoDescription.style.display = 'none'
+            btnArrow.style.transform = 'rotate(0deg'
+        }
+    })
 
     return container
 
@@ -86,12 +102,12 @@ export function renderTodos(timeSpan) {
             switch (timeSpan) {
                 case 'today':
                     if(isToday(todo.dueDate)) {
-                        divTodos.append(CreateTodoElement(todo))
+                        divTodos.append(createTodoElement(todo))
                     }
                     break;
                 case 'this week':
                     if(isThisWeek(todo.dueDate)) {
-                        divTodos.append(CreateTodoElement(todo))
+                        divTodos.append(createTodoElement(todo))
                     }
             }
         })

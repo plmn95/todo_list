@@ -49,7 +49,7 @@ html, body {
 }
 
 #title {
-    font-family: "Faster One", systems-ui;
+    font-family: "Faster One", system-ui;
     font-weight: 400;
     font-size: 48px;
     color: #F51414;
@@ -87,9 +87,46 @@ html, body {
 
 .todo-header-part * {
     margin: 1rem;
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 600;
 }
 
 .icon {
     width: 1rem;
     height: 1rem;
+}
+
+.todo-description {
+    display: none;
+    padding-top: 0;
+    border-top: solid #F51414 1px ;
+}
+
+.todo-description > div  * {
+    margin: 1rem;
+}
+
+.todo-description p {
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 400;
+}
+
+.todo-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.button-priority {
+    background-color: #0093F4;
+    color: white;
+    border-style: none;
+    width: 53px;
+    height: 28px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 300;
 }
