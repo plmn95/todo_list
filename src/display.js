@@ -19,7 +19,7 @@ export function menuController() {
 
 function renderProjects() {
     const projectsMenu = document.getElementById('projects-menu')
-    projectsMenu.innerHTML = ''
+    //projectsMenu.innerHTML = ''
     projects.forEach(project => {
         const btn = document.createElement('li')
         btn.innerText = project.name
@@ -27,9 +27,7 @@ function renderProjects() {
     })
 }
 
-function createTodoElement(todo) {
-
-    console.log(todo)
+function createTodoElement(todo, timeSpan) {
 
     const container = document.createElement('div')
     container.classList.add('todo')
@@ -90,6 +88,13 @@ function createTodoElement(todo) {
         }
     })
 
+    btnCheck.addEventListener('click', () => {
+        projects.forEach(project => {
+            project.deleteTodo(todo.title)
+        })
+        renderTodos(timeSpan)
+    })
+
     return container
 
 }
@@ -102,14 +107,23 @@ export function renderTodos(timeSpan) {
             switch (timeSpan) {
                 case 'today':
                     if(isToday(todo.dueDate)) {
-                        divTodos.append(createTodoElement(todo))
+                        divTodos.append(createTodoElement(todo, timeSpan))
                     }
                     break;
                 case 'this week':
                     if(isThisWeek(todo.dueDate)) {
-                        divTodos.append(createTodoElement(todo))
+                        divTodos.append(createTodoElement(todo, timeSpan))
                     }
             }
         })
+    })
+}
+
+export function createTodo() {
+    const btnAdd = document.getElementById('btn-add')
+    const todosDiv = document.getElementById('todos')
+
+    btnAdd.addEventListener('click', () => {
+        todosDiv.innerHTML = ''
     })
 }

@@ -39,7 +39,7 @@ html, body {
 #main {
     background-color: #D4D6F1;
     display: grid;
-    grid-template: 1fr 5fr / 1fr;
+    grid-template: 1fr 5fr 1fr / 1fr;
 }
 
 #div-title {
@@ -121,7 +121,7 @@ html, body {
     background-color: #0093F4;
     color: white;
     border-style: none;
-    width: 53px;
+    width: 4rem;
     height: 28px;
     padding: 10px;
     display: flex;
@@ -129,4 +129,18 @@ html, body {
     justify-content: center;
     font-family: "Kumbh Sans", sans-serif;
     font-weight: 300;
+}
+
+#bottom-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 5rem;
+}
+
+#btn-add {
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 400;
+    font-size: 36px;
+    color: #0093F4;
 }

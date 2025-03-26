@@ -1,4 +1,4 @@
-import {  } from 'date-fns'
+import { addDays } from 'date-fns'
 
 class Todo {
     constructor(title, description, dueDate, priority) {
@@ -43,6 +43,7 @@ class Project {
 const projectDefault = new Project('Default')
 projectDefault.addTodo('Start', 'You must create your first task here.', new Date(), 'low')
 projectDefault.addTodo('Test', 'You must create your first task here.', new Date(), 'low')
+projectDefault.addTodo('Another Test', 'This task is two days from today', addDays(new Date(), 2), 'medium')
 
 const projects = [projectDefault]
 
