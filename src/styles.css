@@ -144,3 +144,84 @@ html, body {
     font-size: 36px;
     color: #0093F4;
 }
+
+#form-add {
+    display: grid;
+    grid-template: 1fr 2fr 1fr 1fr 1fr 1fr/ 1fr 3fr;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    gap: 1rem;
+}
+
+#form-add label {
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 300;
+    font-size: 36px;
+}
+
+#form-add input, #form-add #description, #form-add select {
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    border-top: none;
+    border-right: none;
+    border-width: 1px;
+    background-color: #D4D6F1;
+    padding: 8px;
+}
+
+#form-add .priority-buttons {
+    display: flex;
+    align-items: center;
+}
+
+#form-add .priority-btn {
+    font-family: "Kumbh Sans", sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    width: 53px;
+    height: 32px;
+    margin-right: 20px;
+    background-color: white;
+    border: solid #0093F4 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#form-add .selected-btn {
+    color: white;
+    background-color: #0093F4;
+}
+
+#form-add .div-select-project {
+    display: grid;
+    grid-template: 1fr / 2fr 1fr
+}
+
+#form-add .div-add-img {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+#form-add #add-icon {
+    width: 2rem;
+}
+
+.form-btns {
+    grid-column: 2 / 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.form-btns * {
+    font-family: "Kumbh Sans", sans-serif;
+    text-decoration: none;
+    color: black;
+    font-weight: 300;
+    font-size: 36px;
+    margin: 0;
+    margin-left: 2rem;
+}

@@ -48,7 +48,7 @@ projectDefault.addTodo('Another Test', 'This task is two days from today', addDa
 const projects = [projectDefault]
 
 export function newProject(name) {
-    new Project(name)
+    return new Project(name)
 }
 
 export { projects }

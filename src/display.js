@@ -1,4 +1,4 @@
-import { projects } from './todos'
+import { projects, newProject } from './todos'
 import { isToday, isThisWeek, format } from 'date-fns'
 
 import arrowIcon from './images/todo_icons/arrow-down-bold.svg'
@@ -126,4 +126,61 @@ export function createTodo() {
     btnAdd.addEventListener('click', () => {
         todosDiv.innerHTML = ''
     })
+}
+
+
+// ---Initializing the form used to create new todos---
+export function setupTaskForm() {
+    const form = document.getElementById('form-add')
+    const priorityBtns = form.querySelectorAll('.priority-btn')
+    const formDropdown = document.getElementById('project')
+    const btnAddProject = document.querySelector('.btn-add-project')
+    let selectedPriority = 'low'
+
+    priorityBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            priorityBtns.forEach(btn => btn.classList.remove('selected-btn'))
+            button.classList.add('selected-btn')
+            selectedPriority = button.getAttribute('todo-priority')
+        })
+    })
+
+    projects.forEach(project => {
+        const option = document.createElement('option')
+        option.value = project.name
+        option.text = project.name
+        formDropdown.appendChild(option)
+    })
+
+    btnAddProject.addEventListener('click', () => {
+        const name = prompt('Enter new project name:')
+        projects.push(newProject(name))
+        console.table(projects)
+        formDropdown.innerHTML = ''
+        setupTaskForm()
+    })
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault()
+        console.log(event)
+        console.log('yahoo mama mia')
+
+        // const name = form.querySelector('#name').value
+        // const description = form.querySelector('#description').value
+        // const dueDate = new Date(form.querySelector('#dueDate').value)
+        // const priority = selectedPriority
+        // const project = projects.find(project => project.name === formDropdown.value)
+
+        // project.addTodo(name, description, dueDate, priority)
+
+        // form.reset()
+        // priorityBtns.forEach(btn => btn.classList.remove('selected-btn'))
+        // selectedPriority = 'low']
+    })
+}
+
+function newProjectPrompt() {
+    const name = prompt('Name of new project:')
+    const newProject = new Project(name)
+    projects.push(newProject)
 }
