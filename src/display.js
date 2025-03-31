@@ -4,6 +4,7 @@ import { isToday, isThisWeek, format } from 'date-fns'
 import arrowIcon from './images/todo_icons/arrow-down-bold.svg'
 import checkIcon from './images/todo_icons/check-bold.svg'
 import editIcon from './images/todo_icons/pencil.svg'
+import newProjectIcon from './images/icons/add.svg'
 
 export function menuController() {
     const btnToday = document.getElementById('btn-today')
@@ -101,6 +102,7 @@ function createTodoElement(todo, timeSpan) {
 
 export function renderTodos(timeSpan) {
     const divTodos = document.getElementById('todos')
+    const bottomMenu = document.getElementById('bottom-menu')
     divTodos.innerHTML = ''
     projects.forEach(project => {
         project.todos.forEach(todo => {
@@ -117,25 +119,117 @@ export function renderTodos(timeSpan) {
             }
         })
     })
-}
-
-export function createTodo() {
-    const btnAdd = document.getElementById('btn-add')
-    const todosDiv = document.getElementById('todos')
-
+    const btnAdd = document.createElement('p')
+    btnAdd.innerText = '+ add'
+    btnAdd.setAttribute('id', 'btn-add')
+    bottomMenu.innerHTML = ''
+    bottomMenu.append(btnAdd)
     btnAdd.addEventListener('click', () => {
-        todosDiv.innerHTML = ''
+        initializeForm()
+        formController()
     })
 }
 
+// export function createTodo() {
+//     const btnAdd = document.getElementById('btn-add')
+//     const todosDiv = document.getElementById('todos')
+
+//     btnAdd.addEventListener('click', () => {
+//         todosDiv.innerHTML = ''
+//     })
+// }
+
 
 // ---Initializing the form used to create new todos---
-export function setupTaskForm() {
+
+function initializeForm() {
+    const container = document.querySelector('#todos')
+
+    const form = document.createElement('form')
+    form.setAttribute('id', 'form-add')
+
+    const nameLabel = document.createElement('label')
+    nameLabel.setAttribute('for', 'name')
+    nameLabel.innerText = 'title'
+    const name = document.createElement('input')
+    name.setAttribute('type', 'text')
+
+    const descriptionLabel = document.createElement('label')
+    descriptionLabel.setAttribute('for', 'description')
+    descriptionLabel.innerText = 'description'
+    const description = document.createElement('textarea')
+    description.setAttribute('rows', '3')
+    description.setAttribute('id', 'description')
+
+    const dueDateLabel = document.createElement('label')
+    dueDateLabel.setAttribute('for', 'dueDate')
+    dueDateLabel.innerText = 'deadline'
+    const dueDate = document.createElement('input')
+    dueDate.setAttribute('type', 'date')
+
+    const priorityLabel = document.createElement('label')
+    priorityLabel.setAttribute('for', 'priority')
+    priorityLabel.innerText = 'priority'
+    const priorityBtnsDiv = document.createElement('div')
+    priorityBtnsDiv.setAttribute('class', 'priority-buttons')
+    const btnLow = document.createElement('button')
+    btnLow.setAttribute('type', 'button')
+    btnLow.classList.add('priority-btn', 'selected-btn')
+    btnLow.innerText = 'low'
+    const btnMid = document.createElement('button')
+    btnMid.setAttribute('type', 'button')
+    btnMid.setAttribute('class', 'priority-btn')
+    btnMid.innerText = 'mid'
+    const btnHigh = document.createElement('button')
+    btnHigh.setAttribute('type', 'button')
+    btnHigh.setAttribute('class', 'priority-btn')
+    btnHigh.innerText = 'high'
+    priorityBtnsDiv.append(btnLow, btnMid, btnHigh)
+
+    const projectLabel = document.createElement('label')
+    projectLabel.setAttribute('for', 'project')
+    projectLabel.innerText = 'project'
+    const divProjectSelection = document.createElement('div')
+    divProjectSelection.setAttribute('class', 'div-select-project')
+    const projectSelection = document.createElement('select')
+    projectSelection.setAttribute('id', 'project')
+    const newProjectDiv = document.createElement('div')
+    newProjectDiv.setAttribute('class', 'div-add-img')
+    const newProjectBtn = document.createElement('img')
+    newProjectBtn.src = newProjectIcon
+    newProjectBtn.setAttribute('class', 'btn-add-project')
+    newProjectDiv.append(newProjectBtn)
+    divProjectSelection.append(projectSelection, newProjectDiv)
+    
+    form.append(nameLabel, name, descriptionLabel, description, dueDateLabel, dueDate, priorityLabel, priorityBtnsDiv, projectLabel, divProjectSelection)
+    container.innerHTML = ''
+    container.append(form)
+
+    const bottomMenu = document.querySelector('#bottom-menu')
+
+    bottomMenu.innerHTML = ''
+
+    const bottomMenuFormBtns = document.createElement('div')
+    bottomMenuFormBtns.setAttribute('id', 'form-btns')
+    const btnSave = document.createElement('p')
+    btnSave.setAttribute('id', 'btn-submit')
+    btnSave.innerText = 'save'
+    const btnCancel = document.createElement('p')
+    btnCancel.innerText = 'cancel'
+    bottomMenuFormBtns.append(btnSave, btnCancel)
+    bottomMenu.append(bottomMenuFormBtns)
+}
+
+export function formController() {
+
     const form = document.getElementById('form-add')
-    const priorityBtns = form.querySelectorAll('.priority-btn')
+    const priorityBtns = document.querySelectorAll('.priority-btn')
     const formDropdown = document.getElementById('project')
     const btnAddProject = document.querySelector('.btn-add-project')
+    const btnSubmit = document.getElementById('btn-submit')
     let selectedPriority = 'low'
+
+    console.log(btnSubmit)
 
     priorityBtns.forEach(button => {
         button.addEventListener('click', () => {
@@ -154,28 +248,32 @@ export function setupTaskForm() {
 
     btnAddProject.addEventListener('click', () => {
         const name = prompt('Enter new project name:')
-        projects.push(newProject(name))
-        console.table(projects)
-        formDropdown.innerHTML = ''
-        setupTaskForm()
+        if (name) {
+            projects.push(newProject(name))
+            console.table(projects)
+            formDropdown.innerHTML = ''
+            formController()
+        } 
     })
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault()
-        console.log(event)
-        console.log('yahoo mama mia')
+    btnSubmit.addEventListener('click', () => {
+        console.log('yahoo mamma mia')
 
-        // const name = form.querySelector('#name').value
-        // const description = form.querySelector('#description').value
-        // const dueDate = new Date(form.querySelector('#dueDate').value)
-        // const priority = selectedPriority
-        // const project = projects.find(project => project.name === formDropdown.value)
+        const name = document.querySelector('#name').value
+        const description = document.querySelector('#description').value
+        const dueDate = new Date(form.querySelector('#dueDate').value)
+        const priority = selectedPriority
+        const project = projects.find(project => project.name === formDropdown.value)
 
-        // project.addTodo(name, description, dueDate, priority)
+        if (name && description && dueDate != 'Invalid Date') {
+            project.addTodo(name, description, dueDate, priority)
+        }
 
-        // form.reset()
-        // priorityBtns.forEach(btn => btn.classList.remove('selected-btn'))
-        // selectedPriority = 'low']
+
+
+    // //     // form.reset()
+    // //     // priorityBtns.forEach(btn => btn.classList.remove('selected-btn'))
+    // //     // selectedPriority = 'low']
     })
 }
 

@@ -205,7 +205,7 @@ html, body {
     padding-left: 10px;
 }
 
-#form-add #add-icon {
+#form-add .btn-add-project {
     width: 2rem;
 }
 
