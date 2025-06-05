@@ -153,6 +153,7 @@ function initializeForm() {
     nameLabel.innerText = 'title'
     const name = document.createElement('input')
     name.setAttribute('type', 'text')
+    name.setAttribute('id', 'name')
 
     const descriptionLabel = document.createElement('label')
     descriptionLabel.setAttribute('for', 'description')
@@ -166,6 +167,7 @@ function initializeForm() {
     dueDateLabel.innerText = 'deadline'
     const dueDate = document.createElement('input')
     dueDate.setAttribute('type', 'date')
+    dueDate.setAttribute('id', 'dueDate')
 
     const priorityLabel = document.createElement('label')
     priorityLabel.setAttribute('for', 'priority')
