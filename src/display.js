@@ -259,7 +259,6 @@ export function formController() {
     })
 
     btnSubmit.addEventListener('click', () => {
-        console.log('yahoo mamma mia')
 
         const name = document.querySelector('#name').value
         const description = document.querySelector('#description').value
@@ -268,7 +267,9 @@ export function formController() {
         const project = projects.find(project => project.name === formDropdown.value)
 
         if (name && description && dueDate != 'Invalid Date') {
+            console.log(priority)
             project.addTodo(name, description, dueDate, priority)
+            console.table(projects)
         }
 
 
