@@ -38,8 +38,12 @@ html, body {
 
 #main {
     background-color: #D4D6F1;
-    display: grid;
-    grid-template: 1fr 5fr 1fr / 1fr;
+    display: flex;
+    flex-direction: column;
+}
+
+#main div:last-of-type {
+    margin-top: auto;
 }
 
 #div-title {
@@ -138,7 +142,7 @@ html, body {
     padding-right: 5rem;
 }
 
-#btn-add {
+#btn-add, #form-btns * {
     font-family: "Kumbh Sans", sans-serif;
     font-weight: 400;
     font-size: 36px;
