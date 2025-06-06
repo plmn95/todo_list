@@ -9,11 +9,15 @@ import newProjectIcon from './images/icons/add.svg'
 export function menuController() {
     const btnToday = document.getElementById('btn-today')
     const btnThisWeek = document.getElementById('btn-week')
+    const btnViewAll = document.getElementById('btn-all')
     btnToday.addEventListener('click', () => {
         renderTodos('today')
     })
     btnThisWeek.addEventListener('click', () => {
         renderTodos('this week')
+    })
+    btnViewAll.addEventListener('click', () => {
+        renderTodos('all')
     })
     renderProjects()
 }
@@ -115,7 +119,11 @@ export function renderTodos(timeSpan) {
                 case 'this week':
                     if(isThisWeek(todo.dueDate)) {
                         divTodos.append(createTodoElement(todo, timeSpan))
+                        break;
                     }
+                case 'all':
+                    divTodos.append(createTodoElement(todo, timeSpan))
+                    break;
             }
         })
     })
@@ -237,7 +245,14 @@ export function formController() {
         button.addEventListener('click', () => {
             priorityBtns.forEach(btn => btn.classList.remove('selected-btn'))
             button.classList.add('selected-btn')
-            selectedPriority = button.getAttribute('todo-priority')
+            switch (button.innerText) {
+                case button.innerText = 'mid':
+                    selectedPriority = 'medium'
+                    break;
+                default:
+                    selectedPriority = button.innerText
+                    break;
+            }
         })
     })
 
@@ -252,8 +267,7 @@ export function formController() {
         const name = prompt('Enter new project name:')
         if (name) {
             projects.push(newProject(name))
-            console.table(projects)
-            formDropdown.innerHTML = ''
+            initializeForm()
             formController()
         } 
     })
@@ -267,9 +281,8 @@ export function formController() {
         const project = projects.find(project => project.name === formDropdown.value)
 
         if (name && description && dueDate != 'Invalid Date') {
-            console.log(priority)
             project.addTodo(name, description, dueDate, priority)
-            console.table(projects)
+            renderTodos('all')
         }
 
 
