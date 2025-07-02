@@ -24,7 +24,6 @@ export function menuController() {
 
 function renderProjects() {
     const projectsMenu = document.getElementById('projects-menu')
-    //projectsMenu.innerHTML = ''
     projects.forEach(project => {
         const btn = document.createElement('li')
         btn.innerText = project.name
@@ -62,11 +61,11 @@ function createTodoElement(todo, timeSpan) {
 
     const todoDescription = document.createElement('div')
 
-    const containerDesc = document.createElement('div')
+    // const containerDesc = document.createElement('div')
     const todoDescriptionText = document.createElement('p')
     todoDescriptionText.innerText = todo.description
-    containerDesc.append(todoDescriptionText)
-    todoDescription.append(containerDesc)
+    // containerDesc.append(todoDescriptionText)
+    todoDescription.append(todoDescriptionText)
     todoDescription.classList.add('todo-description')
 
     const todoButtons = document.createElement('div')
@@ -98,6 +97,24 @@ function createTodoElement(todo, timeSpan) {
             project.deleteTodo(todo.title)
         })
         renderTodos(timeSpan)
+    })
+
+    btnEdit.addEventListener('click', () => {
+        const newTitle = document.createElement('input')
+        newTitle.value = todo.title
+        title.replaceWith(newTitle)
+
+        const newDate = document.createElement('input')
+        newDate.type = 'date'
+        dueDate.replaceWith(newDate)
+
+        const newDescription = document.createElement('textarea')
+        newDescription.value = todo.description
+        todoDescriptionText.replaceWith(newDescription)
+
+        btnPriority.addEventListener('click', () => {
+            console.log('test')
+        })
     })
 
     return container
@@ -137,16 +154,6 @@ export function renderTodos(timeSpan) {
         formController()
     })
 }
-
-// export function createTodo() {
-//     const btnAdd = document.getElementById('btn-add')
-//     const todosDiv = document.getElementById('todos')
-
-//     btnAdd.addEventListener('click', () => {
-//         todosDiv.innerHTML = ''
-//     })
-// }
-
 
 // ---Initializing the form used to create new todos---
 
