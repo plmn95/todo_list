@@ -4,6 +4,7 @@ import { isToday, isThisWeek, format } from 'date-fns'
 import arrowIcon from './images/todo_icons/arrow-down-bold.svg'
 import checkIcon from './images/todo_icons/check-bold.svg'
 import editIcon from './images/todo_icons/pencil.svg'
+import saveIcon from './images/todo_icons/save.svg'
 import newProjectIcon from './images/icons/add.svg'
 
 export function menuController() {
@@ -100,12 +101,15 @@ function createTodoElement(todo, timeSpan) {
     })
 
     btnEdit.addEventListener('click', () => {
+
         const newTitle = document.createElement('input')
         newTitle.value = todo.title
         title.replaceWith(newTitle)
 
         const newDate = document.createElement('input')
         newDate.type = 'date'
+        newDate.innerText = format(todo.dueDate, 'dd/MM/yyyy')
+        console.log(format(todo.dueDate, 'dd/MM/yyyy'))
         dueDate.replaceWith(newDate)
 
         const newDescription = document.createElement('textarea')
@@ -113,8 +117,32 @@ function createTodoElement(todo, timeSpan) {
         todoDescriptionText.replaceWith(newDescription)
 
         btnPriority.addEventListener('click', () => {
-            console.log('test')
+            switch (btnPriority.innerText) {
+                case 'low':
+                    btnPriority.innerText = 'medium'
+                    break;
+            
+                case 'medium':
+                    btnPriority.innerText = 'high'
+                    break;
+            
+                case 'high':
+                    btnPriority.innerText = 'low'
+                    break;
+            }
         })
+
+        const btnSave = document.createElement('img')
+        btnSave.src = saveIcon
+        btnSave.classList.add('icon')
+
+        btnEdit.replaceWith(btnSave)
+
+        btnSave.addEventListener('click', () => {
+            todo.title = newTitle.value
+            console.log(todo.title)
+        })
+
     })
 
     return container
