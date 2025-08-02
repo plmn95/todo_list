@@ -23,11 +23,11 @@ html, body {
     margin-bottom: 3rem;
 }
 
-#side-menu {
+#menu-btns-time {
     margin-top: 4rem;
 }
 
-#side-menu li, #projects-menu li {
+#menu-btns-time li, #projects-menu li {
     list-style-type: none;
     font-family: "Kumbh Sans", sans-serif;
     font-weight: 400;
@@ -148,6 +148,7 @@ html, body {
     align-items: center;
     justify-content: flex-end;
     padding-right: 5rem;
+    cursor: default;
 }
 
 #btn-add, #form-btns * {

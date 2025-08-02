@@ -8,27 +8,69 @@ import saveIcon from './images/todo_icons/save.svg'
 import newProjectIcon from './images/icons/add.svg'
 
 export function menuController() {
+    const divTodos = document.getElementById('todos')
+
     const btnToday = document.getElementById('btn-today')
     const btnThisWeek = document.getElementById('btn-week')
     const btnViewAll = document.getElementById('btn-all')
     btnToday.addEventListener('click', () => {
-        renderTodos('today')
+        renderTodosByTime('today')
     })
     btnThisWeek.addEventListener('click', () => {
-        renderTodos('this week')
+        renderTodosByTime('this week')
     })
     btnViewAll.addEventListener('click', () => {
-        renderTodos('all')
+        renderTodosByTime('all')
     })
-    renderProjects()
-}
 
-function renderProjects() {
     const projectsMenu = document.getElementById('projects-menu')
     projects.forEach(project => {
         const btn = document.createElement('li')
         btn.innerText = project.name
         projectsMenu.append(btn)
+
+        btn.addEventListener('click', () => {
+            divTodos.innerHTML = ''
+            let project = projects.find((project) => project.name == btn.innerText)
+            project.todos.forEach(todo => {
+                divTodos.append(createTodoElement(todo))
+                console.log(todo)
+            });
+        })
+    })
+}
+
+export function renderTodosByTime(timeSpan) {
+    const divTodos = document.getElementById('todos')
+    const bottomMenu = document.getElementById('bottom-menu')
+    divTodos.innerHTML = ''
+    projects.forEach(project => {
+        project.todos.forEach(todo => {
+            switch (timeSpan) {
+                case 'today':
+                    if(isToday(todo.dueDate)) {
+                        divTodos.append(createTodoElement(todo, timeSpan))
+                    }
+                    break;
+                case 'this week':
+                    if(isThisWeek(todo.dueDate)) {
+                        divTodos.append(createTodoElement(todo, timeSpan))
+                        break;
+                    }
+                case 'all':
+                    divTodos.append(createTodoElement(todo, timeSpan))
+                    break;
+            }
+        })
+    })
+    const btnAdd = document.createElement('p')
+    btnAdd.innerText = '+ add'
+    btnAdd.setAttribute('id', 'btn-add')
+    bottomMenu.innerHTML = ''
+    bottomMenu.append(btnAdd)
+    btnAdd.addEventListener('click', () => {
+        initializeForm()
+        formController()
     })
 }
 
@@ -62,10 +104,8 @@ function createTodoElement(todo, timeSpan) {
 
     const todoDescription = document.createElement('div')
 
-    // const containerDesc = document.createElement('div')
     const todoDescriptionText = document.createElement('p')
     todoDescriptionText.innerText = todo.description
-    // containerDesc.append(todoDescriptionText)
     todoDescription.append(todoDescriptionText)
     todoDescription.classList.add('todo-description')
 
@@ -97,7 +137,7 @@ function createTodoElement(todo, timeSpan) {
         projects.forEach(project => {
             project.deleteTodo(todo.title)
         })
-        renderTodos(timeSpan)
+        renderTodosByTime(timeSpan)
     })
 
     btnEdit.addEventListener('click', () => {
@@ -108,8 +148,7 @@ function createTodoElement(todo, timeSpan) {
 
         const newDate = document.createElement('input')
         newDate.type = 'date'
-        newDate.innerText = format(todo.dueDate, 'dd/MM/yyyy')
-        console.log(format(todo.dueDate, 'dd/MM/yyyy'))
+        newDate.value = format(todo.dueDate, 'yyyy-MM-dd')
         dueDate.replaceWith(newDate)
 
         const newDescription = document.createElement('textarea')
@@ -140,47 +179,15 @@ function createTodoElement(todo, timeSpan) {
 
         btnSave.addEventListener('click', () => {
             todo.title = newTitle.value
-            console.log(todo.title)
+            todo.description = newDescription.value
+            todo.dueDate = newDate.value
+            
         })
 
     })
 
     return container
 
-}
-
-export function renderTodos(timeSpan) {
-    const divTodos = document.getElementById('todos')
-    const bottomMenu = document.getElementById('bottom-menu')
-    divTodos.innerHTML = ''
-    projects.forEach(project => {
-        project.todos.forEach(todo => {
-            switch (timeSpan) {
-                case 'today':
-                    if(isToday(todo.dueDate)) {
-                        divTodos.append(createTodoElement(todo, timeSpan))
-                    }
-                    break;
-                case 'this week':
-                    if(isThisWeek(todo.dueDate)) {
-                        divTodos.append(createTodoElement(todo, timeSpan))
-                        break;
-                    }
-                case 'all':
-                    divTodos.append(createTodoElement(todo, timeSpan))
-                    break;
-            }
-        })
-    })
-    const btnAdd = document.createElement('p')
-    btnAdd.innerText = '+ add'
-    btnAdd.setAttribute('id', 'btn-add')
-    bottomMenu.innerHTML = ''
-    bottomMenu.append(btnAdd)
-    btnAdd.addEventListener('click', () => {
-        initializeForm()
-        formController()
-    })
 }
 
 // ---Initializing the form used to create new todos---
@@ -260,6 +267,7 @@ function initializeForm() {
     btnSave.setAttribute('id', 'btn-submit')
     btnSave.innerText = 'save'
     const btnCancel = document.createElement('p')
+    btnCancel.setAttribute('id', 'btn-cancel')
     btnCancel.innerText = 'cancel'
     bottomMenuFormBtns.append(btnSave, btnCancel)
     bottomMenu.append(bottomMenuFormBtns)
@@ -272,9 +280,8 @@ export function formController() {
     const formDropdown = document.getElementById('project')
     const btnAddProject = document.querySelector('.btn-add-project')
     const btnSubmit = document.getElementById('btn-submit')
+    const btnCancel = document.getElementById('btn-cancel')
     let selectedPriority = 'low'
-
-    console.log(btnSubmit)
 
     priorityBtns.forEach(button => {
         button.addEventListener('click', () => {
@@ -317,14 +324,13 @@ export function formController() {
 
         if (name && description && dueDate != 'Invalid Date') {
             project.addTodo(name, description, dueDate, priority)
-            renderTodos('all')
+            renderTodosByTime('all')
         }
+    })
 
+    btnCancel.addEventListener('click', () => {
 
-
-    // //     // form.reset()
-    // //     // priorityBtns.forEach(btn => btn.classList.remove('selected-btn'))
-    // //     // selectedPriority = 'low']
+        renderTodosByTime('all')
     })
 }
 

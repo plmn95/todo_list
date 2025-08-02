@@ -45,7 +45,10 @@ projectDefault.addTodo('Start', 'You must create your first task here.', new Dat
 projectDefault.addTodo('Test', 'You must create your first task here.', new Date(), 'low')
 projectDefault.addTodo('Another Test', 'This task is two days from today', addDays(new Date(), 2), 'medium')
 
-const projects = [projectDefault]
+const projectTest = new Project('Test')
+projectTest.addTodo('On Another Project', 'Testing second project here.', new Date(), 'medium')
+
+const projects = [projectDefault, projectTest]
 
 export function newProject(name) {
     return new Project(name)
