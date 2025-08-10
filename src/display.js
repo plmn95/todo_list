@@ -7,7 +7,18 @@ import editIcon from './images/todo_icons/pencil.svg'
 import saveIcon from './images/todo_icons/save.svg'
 import newProjectIcon from './images/icons/add.svg'
 
+function newProjectPrompt() {
+    const name = prompt('Name of new project:')
+        if (name == null){
+        return
+    }
+    const project = newProject(name)
+    projects.push(project)
+    menuController()
+}
+
 export function menuController() {
+    const menuItemsContainer = document.getElementById('menu-items')
     const divTodos = document.getElementById('todos')
 
     const btnToday = document.getElementById('btn-today')
@@ -24,6 +35,7 @@ export function menuController() {
     })
 
     const projectsMenu = document.getElementById('projects-menu')
+    projectsMenu.innerHTML = ''
     projects.forEach(project => {
         const btn = document.createElement('li')
         btn.innerText = project.name
@@ -37,6 +49,12 @@ export function menuController() {
                 console.log(todo)
             });
         })
+    })
+
+    const btnNewProject = document.getElementById('btn-add-project')
+    menuItemsContainer.append(btnNewProject)
+    btnNewProject.addEventListener('click', () => {
+        newProjectPrompt()
     })
 }
 
@@ -332,10 +350,4 @@ export function formController() {
 
         renderTodosByTime('all')
     })
-}
-
-function newProjectPrompt() {
-    const name = prompt('Name of new project:')
-    const newProject = new Project(name)
-    projects.push(newProject)
 }
