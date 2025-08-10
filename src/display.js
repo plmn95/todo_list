@@ -18,7 +18,7 @@ function newProjectPrompt() {
 }
 
 export function menuController() {
-    const menuItemsContainer = document.getElementById('menu-items')
+    const menuItemsContainer = document.getElementById('projects-menu')
     const divTodos = document.getElementById('todos')
 
     const btnToday = document.getElementById('btn-today')
@@ -57,7 +57,6 @@ export function menuController() {
     })
 
     const btnNewProject = document.getElementById('btn-add-project')
-    menuItemsContainer.append(btnNewProject)
     btnNewProject.addEventListener('click', () => {
         newProjectPrompt()
     })

@@ -16,15 +16,16 @@ html, body {
 #sidebar {
     background-color: #0093F4;
     cursor: default;
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar :last-child {
+    margin-top: auto;
 }
 
 #lines {
     margin-top: 3rem;
-}
-
-#menu-items {
-    display: grid;
-    grid-template: 1fr 1fr 2fr / 1fr
 }
 
 #menu-btns-time li, #projects-menu li {
@@ -43,12 +44,13 @@ html, body {
     color: white;
 
     display: flex;
-    flex-direction: column;
     margin-top: auto;
     margin-left: auto;
 
     margin-right: 2rem;
-    margin-bottom: 0;;
+    margin-bottom: 36;
+
+    justify-self: flex-end;
 }
 
 #main {
