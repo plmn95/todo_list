@@ -46,8 +46,13 @@ export function menuController() {
             let project = projects.find((project) => project.name == btn.innerText)
             project.todos.forEach(todo => {
                 divTodos.append(createTodoElement(todo))
-                console.log(todo)
-            });
+            })
+            if(divTodos.childElementCount < 1) {
+                const noTodosPara = document.createElement('p')
+                noTodosPara.id = 'no-todos-message'
+                noTodosPara.innerText = `there's nothing here :(`
+                divTodos.append(noTodosPara)
+            }
         })
     })
 
@@ -68,6 +73,7 @@ export function renderTodosByTime(timeSpan) {
                 case 'today':
                     if(isToday(todo.dueDate)) {
                         divTodos.append(createTodoElement(todo, timeSpan))
+                        console.log(divTodos.childElementCount)
                     }
                     break;
                 case 'this week':
@@ -81,6 +87,14 @@ export function renderTodosByTime(timeSpan) {
             }
         })
     })
+
+    if(divTodos.childElementCount < 1) {
+        const noTodosPara = document.createElement('p')
+        noTodosPara.id = 'no-todos-message'
+        noTodosPara.innerText = `there's nothing here :(`
+        divTodos.append(noTodosPara)
+    }
+
     const btnAdd = document.createElement('p')
     btnAdd.innerText = '+ add'
     btnAdd.setAttribute('id', 'btn-add')
@@ -347,7 +361,6 @@ export function formController() {
     })
 
     btnCancel.addEventListener('click', () => {
-
         renderTodosByTime('all')
     })
 }

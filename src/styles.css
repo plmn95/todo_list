@@ -158,6 +158,11 @@ html, body {
     font-weight: 300;
 }
 
+#no-todos-message {
+    align-self: center;
+    font-family: "Kumbh Sans", sans-serif;
+}
+
 #bottom-menu {
     display: flex;
     align-items: center;
