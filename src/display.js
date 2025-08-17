@@ -72,7 +72,6 @@ export function renderTodosByTime(timeSpan) {
                 case 'today':
                     if(isToday(todo.dueDate)) {
                         divTodos.append(createTodoElement(todo, timeSpan))
-                        console.log(divTodos.childElementCount)
                     }
                     break;
                 case 'this week':

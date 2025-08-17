@@ -36,21 +36,28 @@ class Project {
         if (index !== -1) {
             this.todos.splice(index, 1)
         }
+        saveToStorage()
     }
 
 }
-
-const projectDefault = new Project('Default')
-projectDefault.addTodo('Start', 'You must create your first task here.', addDays(new Date(), 2), 'low')
-projectDefault.addTodo('Test', 'You must create your first task here.', addDays(new Date(), 2), 'low')
-projectDefault.addTodo('Another Test', 'This task is two days from today', addDays(new Date(), 2), 'medium')
-
-const projectTest = new Project('Test')
-
-const projects = [projectDefault, projectTest]
 
 export function newProject(name) {
     return new Project(name)
 }
 
+let projects = []
 export { projects }
+
+function saveToStorage() {
+    sessionStorage.setItem("mySessionProjects", JSON.stringify(projects))
+}
+
+(function initialize() {
+    if (sessionStorage.getItem("mySessionProjects")) {
+        projects = JSON.parse(sessionStorage.getItem("mySessionProjects"))
+    } else {
+        const projectDefault = new Project('Default')
+        projectDefault.addTodo('Starting Task', 'This is your first task!', new Date(), 'low')
+        projects = [projectDefault]
+    }
+})()

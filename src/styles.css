@@ -37,6 +37,10 @@ html, body {
     margin: 1rem;
 }
 
+#menu-btns-time li:hover, #projects-menu li:hover {
+    text-decoration: underline;
+}
+
 #btn-add-project {
     font-family: "Kumbh Sans", sans-serif;
     font-weight: 400;
