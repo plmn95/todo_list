@@ -19,6 +19,7 @@ class Project {
     addTodo(title, description, dueDate, priority) {
         const newTodo = new Todo(title, description, dueDate, priority)
         this.todos.push(newTodo)
+        saveToStorage()
     }
 
     updateTodo(title, newTitle, newDescription, newDueDate, newPriority) {
@@ -29,6 +30,7 @@ class Project {
             todo.dueDate = newDueDate
             todo.priority = newPriority
         }
+        saveToStorage()
     }
 
     deleteTodo(title) {
@@ -48,13 +50,28 @@ export function newProject(name) {
 let projects = []
 export { projects }
 
+function deleteProject(name) {
+
+}
+
 function saveToStorage() {
     sessionStorage.setItem("mySessionProjects", JSON.stringify(projects))
 }
 
+function loadFromStorage() {
+    const plainProjects = JSON.parse(sessionStorage.getItem("mySessionProjects"))
+    projects = plainProjects.map(plainProject => {
+        const project = new Project(plainProject.name)
+        project.todos = plainProject.todos.map(plainTodo =>
+            new Todo(plainTodo.title, plainTodo.description, plainTodo.dueDate, plainTodo.priority)
+        )
+        return project
+    })
+}
+
 (function initialize() {
     if (sessionStorage.getItem("mySessionProjects")) {
-        projects = JSON.parse(sessionStorage.getItem("mySessionProjects"))
+        loadFromStorage()
     } else {
         const projectDefault = new Project('Default')
         projectDefault.addTodo('Starting Task', 'This is your first task!', new Date(), 'low')

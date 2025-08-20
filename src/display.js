@@ -6,6 +6,7 @@ import checkIcon from './images/todo_icons/check-bold.svg'
 import editIcon from './images/todo_icons/pencil.svg'
 import saveIcon from './images/todo_icons/save.svg'
 import newProjectIcon from './images/icons/add.svg'
+import deleteProjectIcon from './images/icons/trash.svg'
 
 function newProjectPrompt() {
     const name = prompt('Name of new project:')
@@ -18,7 +19,6 @@ function newProjectPrompt() {
 }
 
 export function menuController() {
-    const menuItemsContainer = document.getElementById('projects-menu')
     const divTodos = document.getElementById('todos')
 
     const btnToday = document.getElementById('btn-today')
@@ -37,9 +37,20 @@ export function menuController() {
     const projectsMenu = document.getElementById('projects-menu')
     projectsMenu.innerHTML = ''
     projects.forEach(project => {
-        const btn = document.createElement('li')
+        const projectLi = document.createElement('li')
+
+        const projectDiv = document.createElement('div')
+        projectLi.append(projectDiv)
+
+        const btn = document.createElement('p')
         btn.innerText = project.name
-        projectsMenu.append(btn)
+        projectDiv.append(btn)
+
+        const deleteProjectBtn = document.createElement('img')
+        deleteProjectBtn.src = deleteProjectIcon
+        projectDiv.append(deleteProjectBtn)
+
+        projectsMenu.append(projectLi)
 
         btn.addEventListener('click', () => {
             divTodos.innerHTML = ''
@@ -208,10 +219,10 @@ function createTodoElement(todo, timeSpan) {
         btnEdit.replaceWith(btnSave)
 
         btnSave.addEventListener('click', () => {
-            todo.title = newTitle.value
-            todo.description = newDescription.value
-            todo.dueDate = newDate.value
-            
+            projects.forEach(project => {
+                project.updateTodo(todo.title, newTitle.value, newDescription.value, newDate.value, btnPriority.innerText)
+            })
+            renderTodosByTime('all')
         })
 
     })
