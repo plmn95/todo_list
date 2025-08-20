@@ -1,4 +1,4 @@
-import { projects, newProject } from './todos'
+import { projects, newProject, deleteProject } from './todos'
 import { isToday, isThisWeek, format } from 'date-fns'
 
 import arrowIcon from './images/todo_icons/arrow-down-bold.svg'
@@ -10,11 +10,10 @@ import deleteProjectIcon from './images/icons/trash.svg'
 
 function newProjectPrompt() {
     const name = prompt('Name of new project:')
-        if (name == null){
+    if (name == null){
         return
     }
-    const project = newProject(name)
-    projects.push(project)
+    newProject(name)
     menuController()
 }
 
@@ -40,6 +39,7 @@ export function menuController() {
         const projectLi = document.createElement('li')
 
         const projectDiv = document.createElement('div')
+        projectDiv.setAttribute('class', 'project-menu-div')
         projectLi.append(projectDiv)
 
         const btn = document.createElement('p')
@@ -49,6 +49,9 @@ export function menuController() {
         const deleteProjectBtn = document.createElement('img')
         deleteProjectBtn.src = deleteProjectIcon
         projectDiv.append(deleteProjectBtn)
+        deleteProjectBtn.addEventListener('click', () => {
+            deleteProject(project.name)
+        })
 
         projectsMenu.append(projectLi)
 
@@ -349,10 +352,10 @@ export function formController() {
     btnAddProject.addEventListener('click', () => {
         const name = prompt('Enter new project name:')
         if (name) {
-            projects.push(newProject(name))
+            newProject(name)
             initializeForm()
             formController()
-        } 
+        }
     })
 
     btnSubmit.addEventListener('click', () => {

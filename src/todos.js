@@ -44,14 +44,18 @@ class Project {
 }
 
 export function newProject(name) {
-    return new Project(name)
+    projects.push(new Project(name))
+    saveToStorage()
 }
 
 let projects = []
 export { projects }
 
-function deleteProject(name) {
-
+export function deleteProject(name) {
+    const index = projects.findIndex(project => project.name === name)
+    console.log(projects[index])
+    projects.splice(index, 1)
+    saveToStorage()
 }
 
 function saveToStorage() {
@@ -76,5 +80,6 @@ function loadFromStorage() {
         const projectDefault = new Project('Default')
         projectDefault.addTodo('Starting Task', 'This is your first task!', new Date(), 'low')
         projects = [projectDefault]
+        saveToStorage()
     }
 })()
