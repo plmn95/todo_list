@@ -37,6 +37,12 @@ export function menuController() {
     projectsMenu.innerHTML = ''
     projects.forEach(project => {
         const projectLi = document.createElement('li')
+        projectLi.addEventListener('mouseover', () => {
+            deleteProjectBtn.style.display = 'block'
+        })
+        projectLi.addEventListener('mouseout', () => {
+            deleteProjectBtn.style.display = 'none'
+        })
 
         const projectDiv = document.createElement('div')
         projectDiv.setAttribute('class', 'project-menu-div')
@@ -47,6 +53,7 @@ export function menuController() {
         projectDiv.append(btn)
 
         const deleteProjectBtn = document.createElement('img')
+        deleteProjectBtn.setAttribute('class', 'delete-project-btn')
         deleteProjectBtn.src = deleteProjectIcon
         projectDiv.append(deleteProjectBtn)
         deleteProjectBtn.addEventListener('click', () => {

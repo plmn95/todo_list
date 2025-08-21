@@ -52,6 +52,9 @@ html, body {
     margin-block-start: 0;
 }
 
+.delete-project-btn {
+    display: none;
+}
 
 #btn-add-project {
     font-family: "Kumbh Sans", sans-serif;
